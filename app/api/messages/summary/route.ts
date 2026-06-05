@@ -1,7 +1,6 @@
-import { NextResponse } from "next/server";
-import { prisma } from "@/lib/prisma";
-
-const PREDEFINED_USER_ID = 1;
+import { NextResponse } from 'next/server';
+import { prisma } from '@/lib/prisma';
+import { PREDEFINED_USER_ID } from '@/lib/constant';
 
 export async function GET() {
   try {
@@ -14,14 +13,14 @@ export async function GET() {
     ]);
 
     if (!user) {
-      return NextResponse.json({ error: "User not found" }, { status: 404 });
+      return NextResponse.json({ error: 'User not found' }, { status: 404 });
     }
 
     return NextResponse.json({ userName: user.name, total, unread });
   } catch {
     return NextResponse.json(
-      { error: "Failed to fetch summary" },
-      { status: 500 }
+      { error: 'Failed to fetch summary' },
+      { status: 500 },
     );
   }
 }

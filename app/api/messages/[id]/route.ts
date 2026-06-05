@@ -1,7 +1,6 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
-
-const PREDEFINED_USER_ID = 1;
+import { PREDEFINED_USER_ID } from '@/lib/constant';
 
 export async function GET(
   _req: Request,

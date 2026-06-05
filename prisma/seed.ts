@@ -12,6 +12,9 @@ async function main() {
   const jim = await prisma.user.create({
     data: { name: 'Jim' },
   });
+  const John = await prisma.user.create({
+    data: { name: 'John' },
+  });
 
   await prisma.message.createMany({
     data: [
