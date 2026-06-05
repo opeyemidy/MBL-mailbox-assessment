@@ -56,21 +56,42 @@ Visit [http://localhost:3000/api-docs](http://localhost:3000/api-docs) or see `o
 
 ```
 ├── app/
-│   ├── api/messages/        # API routes
-│   ├── inbox/               # Inbox page
-│   ├── messages/[id]/       # Message detail page
-│   ├── page.tsx             # Home page
-│   ├── layout.tsx           # Root layout + TopBar
-│   └── globals.css          # Global styles
+│   ├── (app-layout)/
+│   │   └── inbox/page.tsx           # Inbox page
+│   │   └── messages/[id]/page.tsx   # Message detail page
+│   │   └── layout.tsx               # Layout wrapper for mailbox pages  + TopBar
+│   │   └── page.tsx                 # Landing / home page
+│   ├── api/
+│   │   ├── messages/
+│   │   │   ├── [id]/
+│   │   │   │   ├── route.ts         # Get single message
+│   │   │   │   └── read/route.ts    # Mark message as read
+│   │   │   ├── route.ts             # List all messages
+│   │   │   └── summary/route.ts     # Unread + total counts
+│   │   └── test-db/route.ts         # DB health/test route
+│   ├── api-docs/
+│   │   ├── openapi-spec.json       # Generated OpenAPI JSON
+│   │   ├── page.tsx                # API docs page
+│   │   └── SwaggerUiComponent.tsx  # Swagger UI wrapper
+│   ├── globals.css                 # Global styles
+│   ├── layout.tsx                  # Root app layout
 ├── components/
-│   ├── Providers.tsx        # React Query provider
-│   └── TopBar.tsx           # Persistent top bar
+│   ├── Providers.tsx               # React Query + app providers
+│   └── TopBar.tsx                  # Persistent top bar
 ├── lib/
-│   ├── prisma.ts            # Prisma singleton
-│   └── queryKeys.ts         # React Query key constants
+│   ├── constant.ts                 # App constants
+│   ├── prisma.ts                   # Prisma client singleton
+│   ├── queryKeys.ts                # React Query key constants
+│   └── generated/prisma/           # Prisma client generated output
 ├── prisma/
-│   ├── schema.prisma        # DB schema
-│   └── seed.ts              # Seed data
-├── types/index.ts           # Shared TypeScript types
-└── openapi.yaml             # API specification
+│   ├── schema.prisma               # DB schema
+│   ├── seed.ts                     # Seed data script
+│   └── migrations/                 # Prisma migration history
+├── types/index.ts                  # Shared TypeScript types
+├── openapi.yaml                    # API specification
+├── next.config.js                  # Next.js config
+├── package.json                    # Project scripts + dependencies
+├── prisma.config.ts                # Prisma config
+├── tsconfig.json                   # TypeScript config
+└── next-env.d.ts                   # Next.js env types
 ```
