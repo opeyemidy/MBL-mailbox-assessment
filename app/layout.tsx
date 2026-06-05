@@ -1,6 +1,21 @@
 import type { Metadata } from "next";
+import { Playfair_Display, DM_Sans } from 'next/font/google'
 import { Providers } from "@/components/Providers";
 import "./globals.css";
+
+const playfair = Playfair_Display({
+  subsets: ['latin'],
+  weight: ['400', '700'],
+  variable: '--font-playfair', // Maps to a CSS variable
+  display: 'swap',
+})
+
+const dmSans = DM_Sans({
+  subsets: ['latin'],
+  weight: ['300', '400', '500'],
+  variable: '--font-dm-sans', // Maps to a CSS variable
+  display: 'swap',
+})
 
 export const metadata: Metadata = {
   title: "MailBox",
@@ -13,7 +28,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" className={`${playfair.variable} ${dmSans.variable}`}>
       <body>
         <Providers>
           <main className="main-content">{children}</main>
