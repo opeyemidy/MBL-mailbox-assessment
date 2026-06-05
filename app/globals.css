@@ -1,0 +1,33 @@
+:root {
+  --bg: #0b0f17; /* Deep ink black */
+  --surface: #141b27; /* Dark navy surface */
+  --border: #222d3d; /* Subtle metallic blue-gray border */
+  --text-primary: #f1f5f9; /* Crisp off-white text */
+  --text-secondary: #94a3b8; /* Muted steel gray text */
+  --accent: #38bdf8; /* Electric sky blue */
+  --accent-hover: #7dd3fc; /* Soft sky blue hover */
+  --unread-bg: #131e33; /* Deep navy blue glow */
+  --unread-border: #3b82f6; /* Vibrant cobalt blue */
+  --badge: #f43f5e; /* Punchy rose red */
+  --badge-text: #ffffff; /* White text */
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background-color: var(--bg);
+  color: var(--text-primary);
+  min-height: 100vh;
+}
+
+/* ── Layout ── */
+.main-content {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 3rem 1.5rem;
+}
