@@ -1,0 +1,205 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Mail Inbox API",
+    "description": "API for the mail inbox application. All endpoints serve data for the predefined user (Jim).",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000/api",
+      "description": "Local development"
+    }
+  ],
+  "paths": {
+    "/messages/summary": {
+      "get": {
+        "summary": "Get inbox summary",
+        "description": "Returns the predefined user's name, total message count, and unread count.",
+        "operationId": "getMessageSummary",
+        "responses": {
+          "200": {
+            "description": "Summary data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MessageSummary"
+                },
+                "example": {
+                  "userName": "Jim",
+                  "total": 10,
+                  "unread": 4
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User not found"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/messages": {
+      "get": {
+        "summary": "List all messages",
+        "description": "Returns all messages for the predefined user, ordered newest first.",
+        "operationId": "getMessages",
+        "responses": {
+          "200": {
+            "description": "Array of messages",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Message"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/messages/{id}": {
+      "get": {
+        "summary": "Get a single message",
+        "description": "Returns the full content of a single message belonging to the predefined user.",
+        "operationId": "getMessage",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "Message ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Message data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Message"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid ID"
+          },
+          "404": {
+            "description": "Message not found"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/messages/{id}/read": {
+      "patch": {
+        "summary": "Mark message as read",
+        "description": "Marks the specified message as read. Idempotent — safe to call if already read.",
+        "operationId": "markMessageAsRead",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "Message ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Updated read status",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "integer"
+                    },
+                    "isRead": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid ID"
+          },
+          "404": {
+            "description": "Message not found"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Message": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "example": 1
+          },
+          "subject": {
+            "type": "string",
+            "example": "Hi Again"
+          },
+          "content": {
+            "type": "string",
+            "example": "Just wanted to check on you"
+          },
+          "isRead": {
+            "type": "boolean",
+            "example": false
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2024-06-04T10:00:00.000Z"
+          }
+        }
+      },
+      "MessageSummary": {
+        "type": "object",
+        "properties": {
+          "userName": {
+            "type": "string",
+            "example": "Jim"
+          },
+          "total": {
+            "type": "integer",
+            "example": 10
+          },
+          "unread": {
+            "type": "integer",
+            "example": 4
+          }
+        }
+      }
+    }
+  }
+}

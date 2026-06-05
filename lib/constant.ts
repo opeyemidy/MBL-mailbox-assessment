@@ -1,1 +1,1 @@
-export const PREDEFINED_USER_ID = 2;
+export const PREDEFINED_USER_ID = 1;
